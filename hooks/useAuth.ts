@@ -1,6 +1,7 @@
 import { User } from "./../interface/User";
 import { useRef, useState } from "react";
 import db from "../lib/firebase/config";
+import { signIn } from "next-auth/react";
 
 async function createUser(email: string, password: string) {
   const response = await fetch("/api/auth/signup", {
@@ -28,16 +29,11 @@ const useAuth = () => {
     const enteredEmail = emailInputRef.current?.value;
     const enteredPassword = passwordInputRef.current?.value;
     if (isLogin) {
-      const snapshot = await db.collection("users").get();
-      let result: User[] = [];
-      snapshot.docs.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          email: doc.data().email,
-          password: doc.data().password,
-        });
+      const result = signIn("credentials", {
+        redirect: false,
+        email: enteredEmail,
+        password: enteredPassword,
       });
-      console.log(result.find((result) => result.email === "test"));
     } else {
       try {
         if (enteredEmail && enteredPassword) {
