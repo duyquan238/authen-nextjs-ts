@@ -1,0 +1,14 @@
+.authContainer {
+  width: 100%;
+}
+
+.actionWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.input {
+  margin: 10px 0;
+}
