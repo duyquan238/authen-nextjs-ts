@@ -5,6 +5,7 @@ import { verifyPassword } from "../../../lib/auth/auth";
 import db from "../../../lib/firebase/config";
 
 export default NextAuth({
+  secret: process.env.SECRET,
   providers: [
     CredentialsProvider({
       credentials: {

@@ -2,6 +2,7 @@ import { User } from "./../interface/User";
 import { useRef, useState } from "react";
 import db from "../lib/firebase/config";
 import { signIn } from "next-auth/react";
+import Router from "next/router";
 
 async function createUser(email: string, password: string) {
   const response = await fetch("/api/auth/signup", {
@@ -29,11 +30,14 @@ const useAuth = () => {
     const enteredEmail = emailInputRef.current?.value;
     const enteredPassword = passwordInputRef.current?.value;
     if (isLogin) {
-      const result = signIn("credentials", {
+      const result = await signIn("credentials", {
         redirect: false,
         email: enteredEmail,
         password: enteredPassword,
       });
+      if (result) {
+        Router.push("/");
+      }
     } else {
       try {
         if (enteredEmail && enteredPassword) {

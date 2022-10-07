@@ -1,3 +1,5 @@
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AuthForm from "../components/auth/AuthForm";
@@ -24,5 +26,20 @@ const AuthPage = (props: Props) => {
     </Fragment>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession({ req: context.req });
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+}
 
 export default AuthPage;
