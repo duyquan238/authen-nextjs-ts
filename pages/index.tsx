@@ -1,16 +1,16 @@
-import type {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  NextPage,
-} from "next";
+import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import styles from "../styles/Home.module.css";
-import { async } from "@firebase/util";
 import Header from "../components/layout/Header";
+import { Session } from "next-auth";
 
-const Home: NextPage = () => {
+type Props = {
+  session: Session;
+};
+
+const Home = (props: Props) => {
+  const user = props.session.user;
   return (
     <div className={styles.container}>
       <Head>
@@ -18,8 +18,9 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
+        <h1 className={styles.title}>Hi {user?.email}</h1>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">NTT Data!</a>
+          Welcome to <a href="https://www.nttdata.com/vn/en">NTT Data!</a>
         </h1>
       </main>
     </div>

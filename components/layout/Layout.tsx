@@ -17,20 +17,19 @@ const Layout = (props: Props) => {
   );
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession({ req: context.req });
-  console.log("session", session);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: { session },
-  };
-}
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const session = await getSession({ req: context.req });
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/auth",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return {
+//     props: { session },
+//   };
+// }
 
 export default Layout;
